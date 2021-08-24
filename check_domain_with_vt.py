@@ -120,8 +120,8 @@ def pwrite(file, dictionary, indent=0):
             file.write('\t' * indent + str(key) + ': ' + str(value) + '\n')
 
 
-# f = open("/var/tmp/chelsea/alexa_domains.txt", "r")
-# output = open("/var/tmp/chelsea/vt_alexa_domains_formatted.txt", "a")
+# f = open("/var/tmp/phishing/alexa_domains.txt", "r")
+# output = open("/var/tmp/phishing/vt_alexa_domains_formatted.txt", "a")
 # while True:
 #     # Get next line from file
 #     url = f.readline().strip()
