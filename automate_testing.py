@@ -128,10 +128,13 @@ def generate_JSON(domains_text_file, final_test_text_file, final_test_JSON_dir, 
             break
     f.close()
 
-    # Rename the general file and folder used in website_fetcher
-    after_filterting = DLROOT + "/after_filtering_domains.txt"   # File from website_fetcher.py that contains the final test domains
+    # Rename the general file and folder used in website_fetcher 
+    
+    # File from website_fetcher.py that contains the final test domains
+    after_filterting = DLROOT + "/after_filtering_domains.txt"   
     os.rename(after_filterting, final_test_text_file)
 
+    # Folder from website_fetcher.py that contains the JSON files
     websites_dir = DLROOT + "/websites/"
     os.rename(websites_dir, final_test_JSON_dir)
 
