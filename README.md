@@ -1,5 +1,9 @@
 # Stacked model README
 
+## About the project
+We wanted to expand on Off-the-Hook’s content-based phishing prevention application by using a stacked approach. The first level filters domains according to the lexical composition of the domain. The domains labeled phishing (TP and FP) as well as phishing domains falsely labeled benign (FN) from the first step would then be fed into Off-the-Hook’s content-based model in the second level.   
+
+Note that this repos provides scripts to train both our domain-based model and Off-the-Hook's, as well as test our stacked model.
 
 ## Requirements
 Test with Linux machine.
