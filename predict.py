@@ -14,7 +14,7 @@ import feature_extract
 from website_fetcher import DLROOT
 
 
-model_path = DLROOT + '/var/tmp/phishing/saved_models/gb_pca.pkl'
+model_path = '/var/tmp/phishing/scripts_m1/saved_models/gb_pca.pkl'
 model_path_dt = '/var/tmp/phishing/scripts_m1/saved_models/forest_pca_dt.pkl'
 
 x_path = '/var/tmp/phishing/scripts_m1/data/X.txt'
