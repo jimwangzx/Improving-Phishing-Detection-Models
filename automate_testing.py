@@ -29,7 +29,7 @@ def get_phishing_domains(limit, phishing_domains):
     limit: int
         Number of domains to have saved in the text file.
     phishing_domains: str
-        Name of the path to the text file in which the data is to be stored. By default, they
+        Name of the path to the text file in which the domains are to be stored. By default, they
         are stored in the same directory as the script being run.
 
     Returns
@@ -68,14 +68,14 @@ def get_phishing_domains(limit, phishing_domains):
 
 def get_benign_domains(limit, benign_domains):
     """
-    Extracts benign domains from Tranco, and saves them in a text file.
+    Extracts benign domains from Tranco and saves them in a text file.
 
     Parameters
     ----------
     limit: int
         Number of domains to have saved in the text file.
     benign_domains: str
-        Name of the path to the text file in which the data is to be stored. By default,
+        Name of the path to the text file in which the domains are to be stored. By default,
         they are stored in the same directory as the script being run.
     """
     r = get_top_tranco_domains(limit)
@@ -139,14 +139,13 @@ def generate_JSON(domains_text_file, final_test_text_file, final_test_JSON_dir, 
 
 def generate_pkl(websites_dir, prefix, target):
     """
-    Generates pkl file from the JSON files
-    Adapted from Off-the-Hook's build_feat_vec.py
+    Generates a pkl file from the directory containing JSON files.
+    Adapted from Off-the-Hook's build_feat_vec.py.
 
     Parameters
     ----------
     websites_dir: str
         Name of the path to the directory containing the JSON files.
-
     prefix: str
         Name to be assigned to the pickle file generated.
     target: int
@@ -285,7 +284,7 @@ if __name__ == '__main__':
         exit(0)
 
 
-
+    # Generate pkl files for benign and phishing test data
     websites_dir = benign_test_JSON_dir_FP
     prefix = f"{date}_benign_test_FP"
     target = 0
@@ -306,11 +305,9 @@ if __name__ == '__main__':
 
 
 
-    # Add the TN that were filtered out after level 1
-
+    # Add the TN that were filtered out after level 1 to the amount from the confusion matrix in level 2
     with open(benign_test_text_file) as f:
        total = sum(1 for _ in f)
-
     with open(TN_domains_text_file) as f:
        TN = sum(1 for _ in f)
 
