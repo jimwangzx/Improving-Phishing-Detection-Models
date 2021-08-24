@@ -3,7 +3,6 @@ import shutil
 from datetime import date
 import sys
 import pandas as pd
-import pathlib
 import predict
 from build_model import build_predict
 from website_fetcher import WebsiteFetcher
