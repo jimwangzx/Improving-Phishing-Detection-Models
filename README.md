@@ -27,9 +27,7 @@ To extract domains from Alexa, run
 To extract domains from Phishtank, run   
 `python3 get_phishing_domains.py [number of phishing domains]`   
    [number of phishing domains]: int representing the number of domains to extract.   
-
-To verify those Phishtank domains with VirusTotal, run   
-`python3 check_domain_with_vt.py`   
+The script automatically verifies the Phishtank domains with VirusTotal and only writes to the text file the domains that have been flagged as phishing by at least than 5 engines. 
 
 #### JSON File Data Collection and Final Text File Data Collection
 To obtain a folder containing JSON files captured from the domain text files, run   
@@ -43,7 +41,7 @@ Manually rename the websites directory created in the Phishing-Detection-Automat
 Manually rename the after_JSON_filtering.txt text file created in the Phishing-Detection-Automated-Testing project to "benign_train.txt". Move the file from the current directory to the /var/tmp/phishing directory which contains the other domain text files.    
 
 Run   
-`python3 generate_JSON.py /var/tmp/phishing/phishing_domains_VT.txt`   
+`python3 generate_JSON.py /var/tmp/phishing/phishing_domains.txt`   
 Manually rename the websites directory created in the Phishing-Detection-Automated-Testing project to "phishing_train".   
 Manually rename the after_JSON_filtering.txt text file created in the Phishing-Detection-Automated-Testing project to "phishing_train.txt". Move the file from the current directory to the /var/tmp/phishing directory which contains the other domain text files.    
 
