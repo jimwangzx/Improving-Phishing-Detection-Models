@@ -62,9 +62,9 @@ We must first generate pkl files by running
 
 In our case, we run it twice, once for each class of domain, benign and phishing.   
 Run  
-`python3 generate_pkl.py phishing_train phishing_train 1`  
-Run  
 `python3 generate_pkl.py benign_train benign_train 0`  
+Run  
+`python3 generate_pkl.py phishing_train phishing_train 1`  
 
 To train Off-the-Hook's model, run  
 `python3 build_model.py 0 benign_train_fvm.pkl phishing_train_fvm.pkl model`
