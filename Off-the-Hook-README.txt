@@ -1,23 +1,3 @@
-## Stacked model README
-
-### Requirements
-Test with Linux machine.
-
-From the Phishing-Detection-Automated-Testing directory, run
-`pip install -r requirements.txt`
-
-### How to run
-From the Phishing-Detection-Automated-Testing directory, execute
-
-
-
-
-
-
-
-
-
-
 ## Off-the-Hook README
 ======
 
