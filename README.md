@@ -1,23 +1,25 @@
-# Stacked model README
+# Improving Phishing Detection Models README
 
-## About the project
+## About the Project
 We wanted to expand on Off-the-Hook’s content-based phishing prevention application by using a stacked approach. The first level filters domains according to the lexical composition of the domain. The domains labeled phishing (TP and FP) as well as phishing domains falsely labeled benign (FN) from the first step would then be fed into Off-the-Hook’s content-based model in the second level.   
 
 Note that this repos provides scripts to train both our domain-based model and Off-the-Hook's, as well as test our stacked model.
 
+### Development
+This project was developed in the PyCharm IDE from JetBrains. The language used is Python.
+ 
 ## Requirements
 Test with Linux machine.
 
 From the main Phishing-Detection-Automated-Testing directory containing the requirements file, run   
 `pip install -r requirements.txt`
+ 
+### How Run the Code
 
-
-## How to run
-
-### Manually collecting training data
+### Manually Collecting Training Data
 Our domain-based model uses text files to train, whereas Off-the-Hook's content-based model uses JSON files. In order to use the same domains to train both, we follow the steps below.
 
-#### Initial text file data collection
+#### Initial Text File Data Collection
 To extract domains from Alexa, run   
 `python3 get_alexa_domains.py [number of benign domains]`   
   [number of benign domains]: int representing the number of domains to extract.  
@@ -29,7 +31,7 @@ To extract domains from Phishtank, run
 To verify those Phishtank domains with VirusTotal, run   
 `python3 check_domain_with_vt.py`   
 
-#### JSON file data collection and final text file data collection
+#### JSON File Data Collection and Final Text File Data Collection
 To obtain a folder containing JSON files captured from the domain text files, run   
 `python3 generate_JSON.py [path to training text file]`   
   [path to training text file]: str representing the path to the text file containing domains with which to train the model.   
@@ -46,12 +48,12 @@ Manually rename the websites directory created in the Phishing-Detection-Automat
 Manually rename the after_JSON_filtering.txt text file created in the Phishing-Detection-Automated-Testing project to "phishing_train.txt". Move the file from the current directory to the /var/tmp/phishing directory which contains the other domain text files.    
 
 
-### Training our domain-based model
+### Training Our Domain-Based Model
 To train our model, run   
 `python3 train.py`   
 
 
-### Training Off-the-Hook's content-based model
+### Training Off-the-Hook's Content-Based Model
 We must first generate pkl files by running   
 `python3 generate_JSON.py [websites_dir] [prefix] [target]`   
   [websites_dir] parameter: str representing the path to the directory containing the JSON files.   
@@ -68,10 +70,10 @@ To train Off-the-Hook's model, run
 `python3 build_model.py 0 benign_train_fvm.pkl phishing_train_fvm.pkl model`
 For more information on the build_model script, consult Off-the-Hook-README.txt.
 
-### Testing the stacked model
+### Testing the Stacked Model
 To test the stacked model, run   
 `python3 automate_testing.py [test case size]`   
   [test case size]: int representing both the number of benign domains and phishing domains to test the model with. The total number of domains tested is 2*[test case size].
 
-## Desired result
+## Desired Result
 The final output should be a simple table with the number of FP, FN, TP and TN domains, and the accuracy of the stacked model.
