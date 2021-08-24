@@ -65,7 +65,7 @@ Run
 `python3 generate_pkl.py phishing_train phishing_train 1`  
 
 To train Off-the-Hook's model, run  
-`python3 build_model.py 0 benign_train_fvm.pkl phishing_train_fvm.pkl model`
+`python3 build_model.py 0 benign_train_fvm.pkl phishing_train_fvm.pkl model`   
 For more information on the build_model script, consult Off-the-Hook-README.txt.
 
 ### Testing the Stacked Model
