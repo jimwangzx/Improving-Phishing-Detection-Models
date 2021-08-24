@@ -3,7 +3,7 @@
 ### Requirements
 Test with Linux machine.
 
-From the Phishing-Detection-Automated-Testing directory, run   
+From the main directory containing the requirements file, run   
 `pip install -r requirements.txt`
 
 ### How to run
