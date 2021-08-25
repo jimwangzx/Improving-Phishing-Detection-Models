@@ -133,6 +133,7 @@ def generate_JSON(domains_text_file, final_test_text_file, final_test_JSON_dir, 
     shutil.move(after_filterting, final_test_text_file)
 
     websites_dir = DLROOT + "/websites/"
+    shutil.rmtree(final_test_JSON_dir, ignore_errors=True)
     shutil.move(websites_dir, final_test_JSON_dir)
 
 
@@ -268,12 +269,20 @@ if __name__ == '__main__':
         if not domain:
             break
 
-        pathlib.Path(benign_test_JSON_dir_TN).mkdir(parents=True, exist_ok=True)
-        shutil.move(benign_test_JSON_dir + domain + ".json", benign_test_JSON_dir_TN + domain + ".json")
-        shutil.move(benign_test_JSON_dir + domain + ".png", benign_test_JSON_dir_TN + domain + ".png")
+        if not os.path.isdir(benign_test_JSON_dir_TN):
+            os.makedirs(benign_test_JSON_dir_TN)
+        if os.path.exists(benign_test_JSON_dir_TN + domain + ".json"): 
+           os.remove(benign_test_JSON_dir_TN + domain + ".json")
+        if os.path.exists(benign_test_JSON_dir + domain + ".json"):
+           shutil.move(benign_test_JSON_dir + domain + ".json", benign_test_JSON_dir_TN + domain + ".json")
+        if os.path.exists(benign_test_JSON_dir_TN + domain + ".png"): 
+           os.remove(benign_test_JSON_dir_TN + domain + ".png")
+        if os.path.exists(benign_test_JSON_dir + domain + ".png"):
+           shutil.move(benign_test_JSON_dir + domain + ".png", benign_test_JSON_dir_TN + domain + ".png")
     f.close()
 
     benign_test_JSON_dir_FP = benign_test_JSON_dir[:-1] + "_FP/"
+    shutil.rmtree(benign_test_JSON_dir_FP, ignore_errors=True)
     shutil.move(benign_test_JSON_dir, benign_test_JSON_dir_FP)
 
     if len([f for f in os.listdir(benign_test_JSON_dir_FP) if os.path.isfile(os.path.join(benign_test_JSON_dir_FP, f))]) < 2:
