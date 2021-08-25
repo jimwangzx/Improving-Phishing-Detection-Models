@@ -131,11 +131,10 @@ def generate_JSON(domains_text_file, final_test_text_file, final_test_JSON_dir, 
 
     # Rename the general file and folder used in website_fetcher
     after_filterting = DLROOT + "/after_filtering_domains.txt"   # File from website_fetcher.py that contains the final test domains
-    os.rename(after_filterting, final_test_text_file)
-
+    shutil.move(after_filterting, final_test_text_file)
+    
     websites_dir = DLROOT + "/websites/"
-    os.rename(websites_dir, final_test_JSON_dir)
-
+    shutil.move(websites_dir, final_test_JSON_dir)
 
 
 def generate_pkl(websites_dir, prefix, target):
@@ -276,7 +275,7 @@ if __name__ == '__main__':
     f.close()
 
     benign_test_JSON_dir_FP = benign_test_JSON_dir[:-1] + "_FP/"
-    os.rename(benign_test_JSON_dir, benign_test_JSON_dir_FP)
+    shutil.move(benign_test_JSON_dir, benign_test_JSON_dir_FP)
 
     if len([f for f in os.listdir(benign_test_JSON_dir_FP) if os.path.isfile(os.path.join(benign_test_JSON_dir_FP, f))]) < 2:
         print("Not enough FP (minimum 2 required), cannot continue, exiting.")
