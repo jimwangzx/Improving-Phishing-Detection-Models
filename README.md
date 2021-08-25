@@ -38,12 +38,12 @@ In our case, we run it twice, once for each class of domain, benign and phishing
 Run   
 `python3 generate_JSON.py /var/tmp/phishing/benign_domains.txt`   
 Manually rename the websites directory created in the Phishing-Detection-Automated-Testing project to "benign_train".   
-Manually rename the after_JSON_filtering.txt text file created in the Phishing-Detection-Automated-Testing project to "benign_train.txt". Move the file from the current directory to the /var/tmp/phishing/ directory which contains the other domain text files.    
+Manually rename the after_filtering_domains.txt text file created in the Phishing-Detection-Automated-Testing project to "benign_train.txt". Move the file from the current directory to the /var/tmp/phishing/ directory which contains the other domain text files.    
 
 Run   
 `python3 generate_JSON.py /var/tmp/phishing/phishing_domains.txt`   
 Manually rename the websites directory created in the Phishing-Detection-Automated-Testing project to "phishing_train".   
-Manually rename the after_JSON_filtering.txt text file created in the Phishing-Detection-Automated-Testing project to "phishing_train.txt". Move the file from the current directory to the /var/tmp/phishing/ directory which contains the other domain text files.    
+Manually rename the after_filtering_domains.txt text file created in the Phishing-Detection-Automated-Testing project to "phishing_train.txt". Move the file from the current directory to the /var/tmp/phishing/ directory which contains the other domain text files.    
 
 
 ### Training Our Domain-Based Model
