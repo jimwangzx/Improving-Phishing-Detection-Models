@@ -20,6 +20,32 @@ today = date.today()
 date = today.strftime("%b%d")
 
 
+def get_benign_domains(limit, benign_domains):
+    """
+    Extracts benign domains from Tranco, and saves them in a text file.
+
+    Parameters
+    ----------
+    limit: int
+        Number of domains to have saved in the text file.
+    benign_domains: str
+        Name of the path to the text file in which the data is to be stored. By default,
+        they are stored in the same directory as the script being run.
+    """
+    r = get_top_tranco_domains(limit)
+    # Don't extract the top n domains since those were likely used for training. Note that limit > n.
+    n = 3000
+    count = 0
+    f = open(benign_domains, "w")
+    for domain in r:
+        count += 1
+        if count < n:
+            continue
+        f.write(domain + '\n')
+
+    f.close()
+
+
 def get_phishing_domains(limit, phishing_domains):
     """
     Extracts phishing domains from Phishtank, verifies with VirusTotal that they have been
@@ -65,32 +91,6 @@ def get_phishing_domains(limit, phishing_domains):
     f.close()
     domains.close()
     return phishing_domains_VT_check
-
-
-def get_benign_domains(limit, benign_domains):
-    """
-    Extracts benign domains from Tranco, and saves them in a text file.
-
-    Parameters
-    ----------
-    limit: int
-        Number of domains to have saved in the text file.
-    benign_domains: str
-        Name of the path to the text file in which the data is to be stored. By default,
-        they are stored in the same directory as the script being run.
-    """
-    r = get_top_tranco_domains(limit)
-    # Don't extract the top n domains since those were likely used for training. Note that limit > n.
-    n = 3000
-    count = 0
-    f = open(benign_domains, "w")
-    for domain in r:
-        count += 1
-        if count < n:
-            continue
-        f.write(domain + '\n')
-
-    f.close()
 
 
 def generate_JSON(domains_text_file, final_test_text_file, final_test_JSON_dir, test_size):
