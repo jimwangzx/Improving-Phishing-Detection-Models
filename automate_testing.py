@@ -204,7 +204,7 @@ if __name__ == '__main__':
     # GET BENIGN DATA
     print("\n========================================\n\nOBTAINING BENIGN DOMAINS")
     benign_domains = f"/var/tmp/phishing/{date}_benign_domains.txt"
-    get_benign_domains(3000 + test_size*2, benign_domains)
+    get_benign_domains(3000 + test_size, benign_domains)
 
     benign_test_text_file = f"/var/tmp/phishing/{date}_benign_test.txt"
     benign_test_JSON_dir = DLROOT + f"/{date}_benign_test/"
@@ -213,7 +213,7 @@ if __name__ == '__main__':
     # # GET PHISHING DATA
     print("\n========================================\n\nOBTAINING PHISHING DOMAINS\n")
     phishing_domains = f"/var/tmp/phishing/{date}_phishing_domains.txt"
-    phishing_domains_VT = get_phishing_domains(test_size*2, phishing_domains)
+    phishing_domains_VT = get_phishing_domains(test_size, phishing_domains)
     print()
     phishing_test_text_file = f"/var/tmp/phishing/{date}_phishing_test.txt"
     phishing_test_JSON_dir = DLROOT + f"/{date}_phishing_test/"
