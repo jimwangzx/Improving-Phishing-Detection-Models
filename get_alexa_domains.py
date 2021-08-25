@@ -12,7 +12,7 @@ def get_top_alexa_domains(limit):
    #Ref: https://hispar.cs.duke.edu/
    alexa_site_zip_url = 'http://s3.amazonaws.com/alexa-static/top-1m.csv.zip'
 
-   download_path = '/home/chelsea/Documents/workspace'
+   download_path = 'data/downloads'
    download_file = download_path + '/' + 'alexa_urls.zip'
    cmd = "/usr/bin/wget --no-check-certificate " + alexa_site_zip_url + " -O " + download_file
    print("Running command: " + cmd)
