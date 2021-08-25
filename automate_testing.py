@@ -131,7 +131,7 @@ def generate_JSON(domains_text_file, final_test_text_file, final_test_JSON_dir, 
     # Rename the general file and folder used in website_fetcher
     after_filterting = DLROOT + "/after_filtering_domains.txt"   # File from website_fetcher.py that contains the final test domains
     shutil.move(after_filterting, final_test_text_file)
-    
+
     websites_dir = DLROOT + "/websites/"
     shutil.move(websites_dir, final_test_JSON_dir)
 
@@ -202,6 +202,7 @@ if __name__ == '__main__':
 
 
     # GET BENIGN DATA
+    print("\n========================================\n\nOBTAINING BENIGN DOMAINS")
     benign_domains = f"/var/tmp/phishing/{date}_benign_domains.txt"
     get_benign_domains(3000 + test_size*2, benign_domains)
 
@@ -209,19 +210,19 @@ if __name__ == '__main__':
     benign_test_JSON_dir = DLROOT + f"/{date}_benign_test/"
     generate_JSON(benign_domains, benign_test_text_file, benign_test_JSON_dir, test_size)
 
-    print()
-    
     # # GET PHISHING DATA
+    print("\n========================================\n\nOBTAINING PHISHING DOMAINS\n")
     phishing_domains = f"/var/tmp/phishing/{date}_phishing_domains.txt"
     phishing_domains_VT = get_phishing_domains(test_size*2, phishing_domains)
     print()
     phishing_test_text_file = f"/var/tmp/phishing/{date}_phishing_test.txt"
     phishing_test_JSON_dir = DLROOT + f"/{date}_phishing_test/"
     generate_JSON(phishing_domains_VT, phishing_test_text_file, phishing_test_JSON_dir, test_size)
-    print()
+
 
     # Our model level 1 prediction
     # Assumes model has been built
+    print("\n========================================\n\nLEVEL 1: LEXICAL COMPOSITION OF DOMAIN PREDICTION\n")
     total = 0
     phish = 0
     res_obj = predict.load_model()
@@ -249,10 +250,9 @@ if __name__ == '__main__':
             if domain in r:
                 TN_domains.write(domain + "\n")
         total += 1
-        print("Total domains:", total, phish/total)
+        print("Domain # ", total, "   |   Accuracy so far: ", phish/total, sep="")
     f.close()
     TN_domains.close()
-    print("Total domains:", total)
     print("Domains labeled phising:", phish)
     print("Accuracy:", (total - phish) / total)
 
@@ -268,8 +268,7 @@ if __name__ == '__main__':
         if not domain:
             break
 
-        if not os.path.isdir(benign_test_JSON_dir_TN):
-            os.makedirs(benign_test_JSON_dir_TN)
+        pathlib.Path(benign_test_JSON_dir_TN).mkdir(parents=True, exist_ok=True)
         shutil.move(benign_test_JSON_dir + domain + ".json", benign_test_JSON_dir_TN + domain + ".json")
         shutil.move(benign_test_JSON_dir + domain + ".png", benign_test_JSON_dir_TN + domain + ".png")
     f.close()
@@ -278,7 +277,7 @@ if __name__ == '__main__':
     shutil.move(benign_test_JSON_dir, benign_test_JSON_dir_FP)
 
     if len([f for f in os.listdir(benign_test_JSON_dir_FP) if os.path.isfile(os.path.join(benign_test_JSON_dir_FP, f))]) < 2:
-        print("Not enough FP (minimum 2 required), cannot continue, exiting.")
+        print("\n\nNot enough FP (minimum 2 required), cannot continue, exiting.")
         exit(0)
 
 
@@ -313,11 +312,8 @@ if __name__ == '__main__':
 
 
     # STACKED MODEL RESULTS
-    print("\nStacked model results")
+    print("\n========================================\n\nStacked model results")
     print("FP", "FN", "TP", "TN", "Accuracy", sep='\t')
     tn = tn + TN
     accuracy = (tp+tn)/(fp+fn+tn+tp)
     print(fp, fn, tp, tn, accuracy, sep='\t')
-
-
-
