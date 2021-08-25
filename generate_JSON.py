@@ -28,7 +28,6 @@ if __name__ == '__main__':
             url = f.readline().strip()
             if not url:
                 break
-            print(url)
             fetcher = website_fetcher.WebsiteFetcher(confirm=True)
             fetcher.fetch_and_save_data(url)
         f.close()
