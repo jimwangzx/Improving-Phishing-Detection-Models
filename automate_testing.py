@@ -118,7 +118,6 @@ def generate_JSON(domains_text_file, final_test_text_file, final_test_JSON_dir, 
         url = f.readline().strip()
         if not url:
             break
-        print(url)
 
         fetcher = WebsiteFetcher(confirm=True)
         fetcher.fetch_and_save_data(url)
