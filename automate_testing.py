@@ -203,23 +203,22 @@ if __name__ == '__main__':
         test_size = int(sys.argv[1])
 
 
-    # # GET PHISHING DATA
-    phishing_domains = DLROOT + f"/{date}_phishing_domains.txt"
-    phishing_domains_VT = get_phishing_domains(test_size*2, phishing_domains)
-
-    phishing_test_text_file = DLROOT + f"/{date}_phishing_test.txt"
-    phishing_test_JSON_dir = DLROOT + f"/{date}_phishing_test/"
-    generate_JSON(phishing_domains_VT, phishing_test_text_file, phishing_test_JSON_dir, test_size)
-
-
-
     # GET BENIGN DATA
-    benign_domains = DLROOT + f"/{date}_benign_domains.txt"
+    benign_domains = f"/var/tmp/phishing/{date}_benign_domains.txt"
     get_benign_domains(3000 + test_size*2, benign_domains)
 
-    benign_test_text_file = DLROOT + f"/{date}_benign_test.txt"
+    benign_test_text_file = f"/var/tmp/phishing/{date}_benign_test.txt"
     benign_test_JSON_dir = DLROOT + f"/{date}_benign_test/"
     generate_JSON(benign_domains, benign_test_text_file, benign_test_JSON_dir, test_size)
+
+
+    # # GET PHISHING DATA
+    phishing_domains = f"/var/tmp/phishing/{date}_phishing_domains.txt"
+    phishing_domains_VT = get_phishing_domains(test_size*2, phishing_domains)
+
+    phishing_test_text_file = f"/var/tmp/phishing/{date}_phishing_test.txt"
+    phishing_test_JSON_dir = DLROOT + f"/{date}_phishing_test/"
+    generate_JSON(phishing_domains_VT, phishing_test_text_file, phishing_test_JSON_dir, test_size)
 
 
     # Our model level 1 prediction
@@ -279,7 +278,7 @@ if __name__ == '__main__':
     benign_test_JSON_dir_FP = benign_test_JSON_dir[:-1] + "_FP/"
     os.rename(benign_test_JSON_dir, benign_test_JSON_dir_FP)
 
-    if len([f for f in os.listdir(benign_test_JSON_dir_FP)if os.path.isfile(os.path.join(benign_test_JSON_dir_FP, f))]) < 2:
+    if len([f for f in os.listdir(benign_test_JSON_dir_FP) if os.path.isfile(os.path.join(benign_test_JSON_dir_FP, f))]) < 2:
         print("Not enough FP (minimum 2 required), cannot continue, exiting.")
         exit(0)
 
