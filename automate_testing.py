@@ -209,15 +209,16 @@ if __name__ == '__main__':
     benign_test_JSON_dir = DLROOT + f"/{date}_benign_test/"
     generate_JSON(benign_domains, benign_test_text_file, benign_test_JSON_dir, test_size)
 
-
+    print()
+    
     # # GET PHISHING DATA
     phishing_domains = f"/var/tmp/phishing/{date}_phishing_domains.txt"
     phishing_domains_VT = get_phishing_domains(test_size*2, phishing_domains)
-
+    print()
     phishing_test_text_file = f"/var/tmp/phishing/{date}_phishing_test.txt"
     phishing_test_JSON_dir = DLROOT + f"/{date}_phishing_test/"
     generate_JSON(phishing_domains_VT, phishing_test_text_file, phishing_test_JSON_dir, test_size)
-
+    print()
 
     # Our model level 1 prediction
     # Assumes model has been built
@@ -312,7 +313,7 @@ if __name__ == '__main__':
 
 
     # STACKED MODEL RESULTS
-    print("Stacked model results")
+    print("\nStacked model results")
     print("FP", "FN", "TP", "TN", "Accuracy", sep='\t')
     tn = tn + TN
     accuracy = (tp+tn)/(fp+fn+tn+tp)
