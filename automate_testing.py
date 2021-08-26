@@ -20,7 +20,7 @@ today = date.today()
 date = today.strftime("%b%d")
 
 
-def get_benign_domains(limit, benign_domains):
+def get_benign_domains(limit, upper_rank, benign_domains):
     """
     Extracts benign domains from Tranco, and saves them in a text file.
 
@@ -32,14 +32,14 @@ def get_benign_domains(limit, benign_domains):
         Name of the path to the text file in which the data is to be stored. By default,
         they are stored in the same directory as the script being run.
     """
-    r = get_top_tranco_domains(limit)
-    # Don't extract the top n domains since those were likely used for training. Note that limit > n.
-    n = 3000
+    r = get_top_tranco_domains(limit + upper_rank)
+    # Don't extract the top upper_rank domains since those were likely used for training.
+
     count = 0
     f = open(benign_domains, "w")
     for domain in r:
         count += 1
-        if count < n:
+        if count < upper_rank:
             continue
         f.write(domain + '\n')
 
@@ -195,17 +195,18 @@ def generate_pkl(websites_dir, prefix, target):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Please include the number of domains with which you would like to test the stacked model.")
+    if len(sys.argv) < 3:
+        print("Please include the number of domains with which you would like to test the stacked model and the upper rank limit for benign domains.")
         exit(0)
     else:
         test_size = int(sys.argv[1])
+        upper_rank = int(sys.argv[2])
 
 
     # GET BENIGN DATA
     print("\n========================================\n\nOBTAINING BENIGN DOMAINS")
     benign_domains = f"/var/tmp/phishing/{date}_benign_domains.txt"
-    get_benign_domains(3000 + test_size, benign_domains)
+    get_benign_domains(test_size, upper_rank, benign_domains)
 
     benign_test_text_file = f"/var/tmp/phishing/{date}_benign_test.txt"
     benign_test_JSON_dir = DLROOT + f"/{date}_benign_test/"
